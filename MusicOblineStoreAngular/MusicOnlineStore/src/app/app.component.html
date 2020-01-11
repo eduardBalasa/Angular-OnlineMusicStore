@@ -1,0 +1,48 @@
+<!-- Toolbar -->
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar class="app-header">
+    <!--Sidenav-->
+    <button mat-icon-button [matMenuTriggerFor]="instruments">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <div>
+      <a routerLink="home" target="_blank" class="positronx"
+        >MusicInstruments Online Store</a
+      >
+    </div>
+    <span class="nav-tool-items">
+      <div *ngIf="!isLoggedIn()">
+        <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+        <a mat-button routerLink="register" routerLinkActive="active"
+          >Register</a
+        >
+      </div>
+      <div *ngIf="isLoggedIn()">
+        <a
+          mat-button
+          routerLink="login"
+          routerLinkActive="active"
+          (click)="logout()"
+          >Logout</a
+        >
+      </div>
+    </span>
+  </mat-toolbar>
+
+  <mat-menu #instruments="matMenu" routerLinkActive="active">
+    <div
+      *ngFor="let category of categories"
+      [routerLink]="'product/'+ category.categoryName"
+    >
+      <button mat-menu-item>
+        {{ category.name }}
+      </button>
+    </div>
+
+    <!-- <button mat-menu-item>
+        <div *ngIf="categories.categoryName === 'Guitars'" [matMenuTriggerFor]="chitare"></div>
+      </button> -->
+  </mat-menu>
+</div>
+<router-outlet></router-outlet>
